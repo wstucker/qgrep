@@ -11,7 +11,7 @@
 ;; This package provides the ability to "grep" at point; allowing for
 ;; multiple successive greps to quickly navigate through project
 ;; trees. It was designed as a cheap replacement to ctags in a mixed
-;; language enviroment where several languages do not currently have
+;; language environment where several languages do not currently have
 ;; ctag parsers.
 ;;
 ;; The find and the grep have been separated into two histories with
@@ -30,7 +30,7 @@
 ;;    k - keep lines
 ;; 4. Refinement: confirm the arguments of the previous command
 ;;    interactively.
-;; 5. Unqiue buffer naming: keep previous searches around for
+;; 5. Unique buffer naming: keep previous searches around for
 ;;    reference. Kill all qgrep buffers with 'Q'.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -207,7 +207,7 @@ return thing at point."
 	""))))
 
 (defun qgrep-determine-grep (confirm)
-  "Determine the grep command based on default avlue, point, previous search, or
+  "Determine the grep command based on default value, point, previous search, or
 user input."
   (let ((text (qgrep-grab-text)))
     (when (string= text "") ;; Don't allow for empty search
