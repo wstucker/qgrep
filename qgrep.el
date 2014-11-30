@@ -158,7 +158,7 @@ arguments."
 
 (defun qgrep-flush-lines (regexp)
   "Filter out results using flush-lines."
-  (interactive "sFlush lines containing match for regexp:Flush lines containing match for regexp: ")
+  (interactive "sFlush lines containing match for regexp: ")
   (qgrep-filter 'flush-lines regexp))
 
 (defun qgrep-keep-lines (regexp)
