@@ -70,7 +70,6 @@
 Should contain two %-sequences which will be substituted for
 'qgrep-default-find' and 'gqrep-default-find'.")
 
-
 (defvar qgrep-name-uniquely t
   "If t, name each buffer created by qgrep uniquely by search
   path and pattern.")
@@ -134,10 +133,10 @@ when using unique names, this provides an easy way to get rid of
 them all quickly."
   (interactive)
   (mapc (lambda (x)
-	  (with-current-buffer x
-	    (when (eq major-mode 'qgrep-mode)
-	      (kill-buffer x))))
-	(buffer-list)))
+          (with-current-buffer x
+            (when (eq major-mode 'qgrep-mode)
+              (kill-buffer x))))
+        (buffer-list)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Filter/refinement functions
@@ -150,10 +149,10 @@ arguments."
   (interactive)
   (qgrep-parse-args t)
   (let* ((new-buf-name (qgrep-name-buffer 'qgrep-mode))
-	 (new-buf (get-buffer new-buf-name)))
+         (new-buf (get-buffer new-buf-name)))
     (when new-buf
       (unless (string= new-buf-name (buffer-name))
-	(kill-buffer new-buf)))
+        (kill-buffer new-buf)))
     (rename-buffer new-buf-name))
   (qgrep-launch-compile qgrep-find-command qgrep-grep-command))
 
@@ -185,13 +184,13 @@ arguments."
     (setq levels (- levels 1)))
   (setq default-directory (expand-file-name default-directory))
   (let* ((new-buf-name (qgrep-name-buffer 'qgrep-mode))
-	 (new-buf (get-buffer new-buf-name)))
+         (new-buf (get-buffer new-buf-name)))
     (when new-buf
       (unless (string= new-buf-name (buffer-name))
-	(kill-buffer new-buf)))
+        (kill-buffer new-buf)))
     (rename-buffer new-buf-name))
   (qgrep-launch-compile qgrep-find-command qgrep-grep-command))
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Internal functions
 
@@ -199,17 +198,17 @@ arguments."
   "Build a regexp to search for commented-out lines by file
 extension based on the 'qgrep-comment-list'."
   (let ((regexp (mapconcat (lambda (x)
-			     (format "\\(^[^ \t\n]+\\(%s\\):[0-9]+:[ \t]*\\(%s\\)\\)" (car x) (car (cdr x))))
-			   qgrep-comment-list
-			   "\\|")))
+                             (format "\\(^[^ \t\n]+\\(%s\\):[0-9]+:[ \t]*\\(%s\\)\\)" (car x) (car (cdr x))))
+                           qgrep-comment-list
+                           "\\|")))
     (message "%s" regexp)
     regexp))
 
 (defun qgrep-parse-args (confirm)
   "Grab all the arguments necessary to run a grep command."
-    (setq default-directory (qgrep-determine-dired confirm))
-    (setq qgrep-find-command (qgrep-determine-find confirm))
-    (setq qgrep-grep-command (qgrep-determine-grep confirm)))
+  (setq default-directory (qgrep-determine-dired confirm))
+  (setq qgrep-find-command (qgrep-determine-find confirm))
+  (setq qgrep-grep-command (qgrep-determine-grep confirm)))
 
 (defun qgrep-grab-text ()
   "If the region is active, return it as a string, otherwise
@@ -218,8 +217,8 @@ return thing at point."
       (buffer-substring-no-properties (point) (mark))
     (let ((symb (thing-at-point 'symbol)))
       (if symb
-	  (substring-no-properties symb)
-	""))))
+          (substring-no-properties symb)
+        ""))))
 
 (defun qgrep-determine-grep (confirm)
   "Determine the grep command based on default value, point, previous search, or
@@ -229,13 +228,13 @@ user input."
       (setq confirm t))
     (let* ((default-grep (format qgrep-default-grep text)))
       (when (eq major-mode 'qgrep-mode) ;; Doing a refine
-	(setq default-grep qgrep-grep-command))
+        (setq default-grep qgrep-grep-command))
       (when confirm
-	(setq default-grep (read-string "Grep command: "
-					default-grep
-					'qgrep-grep-history
-					nil
-					nil)))
+        (setq default-grep (read-string "Grep command: "
+                                        default-grep
+                                        'qgrep-grep-history
+                                        nil
+                                        nil)))
       default-grep)))
 
 (defun qgrep-determine-find (confirm)
@@ -246,10 +245,10 @@ find, or user input."
       (setq default-find qgrep-find-command))
     (when confirm
       (setq default-find (read-string "Find command: "
-				      default-find
-				      'qgrep-find-history
-				      nil
-				      nil)))
+                                      default-find
+                                      'qgrep-find-history
+                                      nil
+                                      nil)))
     default-find))
 
 (defun qgrep-determine-dired (confirm)
@@ -258,10 +257,10 @@ default-directory."
   (if (not confirm)
       default-directory
     (read-directory-name "Directory to search: "
-			 nil
-			 nil
-			 t
-			 nil)))
+                         nil
+                         nil
+                         t
+                         nil)))
 
 (defun qgrep-name-buffer (mode)
   "Name qgrep buffers uniquely based on grep and directory if
@@ -280,8 +279,8 @@ default-directory."
   (add-to-history 'qgrep-grep-history grep-command)
   (let ((command (format qgrep-default-find-grep-link find-command grep-command)))
     (compilation-start command
-		       'qgrep-mode
-		       'qgrep-name-buffer)))
+                       'qgrep-mode
+                       'qgrep-name-buffer)))
 
 (defun qgrep-results-start ()
   "Return the starting position of the results section."
