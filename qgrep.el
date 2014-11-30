@@ -1,6 +1,6 @@
 ;;; qgrep.el --- Quick access to grep
 
-;; Copyright (C) 2013
+;; Copyright (C) 2013-2014
 ;; Free Software Foundation, Inc.
 
 ;; Author: William Stucker <wstucker@gmail.com>
