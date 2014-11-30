@@ -295,7 +295,7 @@ default-directory."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Mode definition and key bindings
 
-(define-derived-mode qgrep-mode grep-mode "qgrep"
+(define-derived-mode qgrep-mode grep-mode "Grep"
   "qgrep-mode allows for quick access to repeated greps."
   (make-local-variable 'qgrep-find-command)
   (make-local-variable 'qgrep-grep-command)
