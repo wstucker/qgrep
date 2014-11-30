@@ -46,11 +46,11 @@
   "The default grep command.")
 
 (defvar qgrep-default-find
-  "find -name \"*\" -print0"
+  "find . -name \"*\" -type f -print0"
   "The default find command.")
 
 (defvar qgrep-default-find-grep-link
-  "%s | xargs -0 -e %s"
+  "%s | xargs -0 %s"
   "Format string to link the find command to the grep command.
 Should contain two %-sequences which will be substituted for
 'qgrep-default-find' and 'gqrep-default-find'.")
