@@ -32,6 +32,21 @@
 ;;    interactively.
 ;; 5. Unique buffer naming: keep previous searches around for
 ;;    reference. Kill all qgrep buffers with 'Q'.
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Example Setup
+;;
+;; ;; qgrep setup
+;; (autoload 'qgrep "qgrep" "Quick grep" t)
+;; (autoload 'qgrep-no-confirm "qgrep" "Quick grep" t)
+;; (autoload 'qgrep-confirm "qgrep" "Quick grep" t)
+;; (global-set-key (kbd "\C-c g") 'qgrep-no-confirm)
+;; (global-set-key (kbd "\C-c G") 'qgrep-confirm)
+;; ;; Stricter filters
+;; (setq qgrep-default-find "find . \\( -wholename '*/.svn' -o -wholename '*/obj' -o -wholename '*/.git' -o -wholename '*/sim' -o -wholename '*/VCOMP' \\) -prune -o -type f \\( '!' -name '*atdesignerSave.ses' -a \\( -name '*' \\) \\) -type f -print0")
+;; (setq qgrep-default-grep "grep -iI -nH -e \"%s\"")
+;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Dependencies
