@@ -84,6 +84,9 @@ Should contain two %-sequences which will be substituted for
   "List of regexp-regexp pairs of file extension to comment
   character.")
 
+(defvar qgrep-bazel-enable t
+  "If t, try to search the bazel-bin directory as well if it exists.")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; State variables
 
@@ -104,6 +107,16 @@ list.")
 variable becomes buffer-local when qgrep-mode is started. Its
 value is assigned by peeking at the top of the qgrep-grep-history
 list.")
+
+;; Doesn't exist in emacs 24, so reimplement
+(defun vc-root-dir ()
+  (file-truename (replace-regexp-in-string "\n\\'" "" 
+                                           (shell-command-to-string "git rev-parse --show-toplevel"))))
+  ;; The following doesn't work in shell buffers
+  ;; (let ((backend (vc-deduce-backend)))
+  ;;   (and backend
+  ;;        (ignore-errors
+  ;;          (vc-call-backend backend 'root default-directory)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; User accessible functions
@@ -277,6 +290,18 @@ default-directory."
   ;; approach to get the find a grep information stored.n
   (add-to-history 'qgrep-find-history find-command)
   (add-to-history 'qgrep-grep-history grep-command)
+
+  (when qgrep-bazel-enable
+    (let ((vc-root (vc-root-dir)))
+      (when vc-root
+        (let* ((dd-abs (file-truename default-directory))
+               (bb-root (concat vc-root "/bazel-bin"))
+               (bb-dir (replace-regexp-in-string vc-root bb-root dd-abs)))
+          (when (and (not (string= bb-dir dd-abs))
+                     (file-exists-p bb-dir))
+            (setq find-command (replace-regexp-in-string "find \\." (concat "find . " bb-dir) find-command))
+            )))))
+
   (let ((command (format qgrep-default-find-grep-link find-command grep-command)))
     (compilation-start command
                        'qgrep-mode
