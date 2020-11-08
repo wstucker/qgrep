@@ -1,7 +1,7 @@
 qgrep
 =====
 
-qgrep wraps emacs grep-mode quick successive grepping allowing for fast unstructured navigation.
+qgrep is a wrapper around Emacs grep-mode enabling quick successive searches.
 
 The canonical example is searching the current thing-at-point. The recommended setup is to bind qgrep-no-confirm to `C-c g`.
 
