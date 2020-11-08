@@ -1,9 +1,9 @@
 qgrep
 =====
 
-qgrep provides quick successive grepping in emacs allowing for fast unstructured navigation.
+qgrep wraps emacs grep-mode quick successive grepping allowing for fast unstructured navigation.
 
-The canonical example is searching the current thing-at-point. The recommended setup is to bind qgrep-no-confirm to =C-c g=.
+The canonical example is searching the current thing-at-point. The recommended setup is to bind qgrep-no-confirm to `C-c g`.
 
 ![Canonical Qgrep Example](/doc/canonical-qgrep-at-point.gif)
 
@@ -52,8 +52,9 @@ Hitting `r` in the grep window will prompt to refine the search.
 
 Other options include:
 * `c` flush comments (limited filetypes supported)
-* `k` keep-lines  (allows pruning results without rerunning search)
+* `k` keep-lines  (allows pruning results without rerunning search) (not shown)
 * `f` flush-lines (allows pruning results without rerunning search)
-* `g` repeat search
+* `g` repeat search (native to grep-mode)
+* `Q` kill all qgrep buffers (each qgrep is run in a separate buffer to make back-tracking easier)
 
 ![Qgrep Refine](/doc/qgrep-other-options.gif)
