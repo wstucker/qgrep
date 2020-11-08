@@ -291,7 +291,8 @@ options."
 (defun qgrep-name-buffer (mode)
   "Name qgrep buffer.
 If 'qgrep-name-uniquely' is t, uniquely based on grep and
-directory.  Otherwise just call it \"*qgrep*\"."
+directory.  Otherwise just call it \"*qgrep*\".  MODE is required
+for when this function is passed compilation-start."
   (if qgrep-name-uniquely
       (format "*qgrep* %s @ %s" qgrep-grep-command default-directory)
     "*qgrep*"))
