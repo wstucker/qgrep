@@ -4,9 +4,11 @@
 ;; Free Software Foundation, Inc.
 
 ;; Author: William Stucker <wstucker@gmail.com>
+;; URL: https://github.com/wstucker/qgrep
+;; Version: 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Commentary
+;;; Commentary:
 ;;
 ;; This package provides the ability to "grep" at point; allowing for
 ;; multiple successive greps to quickly navigate through project
@@ -109,7 +111,7 @@ value is assigned by peeking at the top of the qgrep-grep-history
 list.")
 
 ;; Doesn't exist in emacs 24, so reimplement
-(defun vc-root-dir ()
+(defun qgrep-vc-root-dir ()
   (file-truename (replace-regexp-in-string "\n\\'" "" 
                                            (shell-command-to-string "git rev-parse --show-toplevel"))))
   ;; The following doesn't work in shell buffers
@@ -292,15 +294,14 @@ default-directory."
   (add-to-history 'qgrep-grep-history grep-command)
 
   (when qgrep-bazel-enable
-    (let ((vc-root (vc-root-dir)))
+    (let ((vc-root (qgrep-vc-root-dir)))
       (when vc-root
         (let* ((dd-abs (file-truename default-directory))
                (bb-root (concat vc-root "/bazel-bin"))
                (bb-dir (replace-regexp-in-string vc-root bb-root dd-abs)))
           (when (and (not (string= bb-dir dd-abs))
                      (file-exists-p bb-dir))
-            (setq find-command (replace-regexp-in-string "find \\." (concat "find . " bb-dir) find-command))
-            )))))
+            (setq find-command (replace-regexp-in-string "find \\." (concat "find . " bb-dir) find-command)))))))
 
   (let ((command (format qgrep-default-find-grep-link find-command grep-command)))
     (compilation-start command
@@ -354,3 +355,4 @@ default-directory."
 (add-hook 'qgrep-mode-hook 'qgrep-bindkeys)
 
 (provide 'qgrep)
+;;; qgrep.el ends here
