@@ -308,6 +308,9 @@ FIND-COMMAND and GREP-COMMAND must be linked through xargs."
   (add-to-history 'qgrep-find-history find-command)
   (add-to-history 'qgrep-grep-history grep-command)
 
+  (unless find-command
+    (setq find-command ""))
+
   (when qgrep-bazel-enable
     (let ((vc-root (qgrep-vc-root-dir)))
       (when vc-root
